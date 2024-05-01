@@ -8,8 +8,7 @@ pipeline{
     stages{
         stage('Build'){
             steps{
-                echo "fetch the source code from $DIRECTORY_PATH specified by the environment variable"
-                echo "compile the code and generate any necessary artifacts"
+                echo "fetch the source code from Maven and compile and package"
             }
         }
         stage('Test'){
