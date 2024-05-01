@@ -22,12 +22,14 @@ pipeline{
                 success{
                     emailext body: 'Testing step was a success',
                     subject: 'Jenkins Testing Success',
-                    to: 'dlambrick@deakin.edu.au'
+                    to: 'dlambrick@deakin.edu.au',
+                    attachLog: true
                 }
                 failure{
                     emailext body: 'Testing step was a failure',
                     subject: 'Jenkins Testing Failure',
-                    to: 'dlambrick@deakin.edu.au'
+                    to: 'dlambrick@deakin.edu.au',
+                    attachLog: true
                 }
             }           
         }
@@ -44,12 +46,14 @@ pipeline{
                 success{
                     emailext body: 'Security step was a success',
                     subject: 'Jenkins Security Success',
-                    to: 'dlambrick@deakin.edu.au'
+                    to: 'dlambrick@deakin.edu.au',
+                    attachLog: true
                 }
                 failure{
                     emailext body: 'Security step was a success',
                     subject: 'Jenkins Security Failure',
-                    to: 'dlambrick@deakin.edu.au'
+                    to: 'dlambrick@deakin.edu.au',
+                    attachLog: true
                 }
             }
 
