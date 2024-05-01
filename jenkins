@@ -1,40 +1,59 @@
 pipeline{
     agent any
     environment {
-        DIRECTORY_PATH="C:/Users/Darcy/Documents/Deakin/SIT223/Code/Jenkins"
-        TESTING_ENVIRONMENT="my_first_pipeline testing"
-        PRODUCTION_ENVIRONMENT="Darcy"
+        BUILD_TOOL="Maven"
+        TESTING_TOOL="BrowserStack"
+        ANALYSIS_TOOL="Jenkins own plugin"
+        SECURITY_TOOL="Spectral"
+        STAGING_SERVER="AWS Server"
+        PRODUCTION_SERVER="AWS Server"
     }
     stages{
         stage('Build'){
             steps{
-                echo "fetch the source code from Maven and compile and package"
+                echo "fetch the source code from $BUILD_TOOL and compile and package"
             }
         }
         stage('Test'){
             steps{
-                echo "unit tests"
-                echo "integration tests"
+                echo "unit tests and integration tests using $TESTING_TOOL"
             }
+            success{
+                mail bcc: '', body: 'Testing step was a success', cc: '', from: '', replyTo: '', subject: 'Jenkins Test Results', to: 'dlambrick@deakin.edu.au'
+            }
+            failure{
+                mail bcc: '', body: 'Testing step was a failure', cc: '', from: '', replyTo: '', subject: 'Jenkins Test Results', to: 'dlambrick@deakin.edu.au'                
+            }            
         }
-        stage('Code Quality Test'){
+        stage('Code Analysis'){
             steps{
-                echo "check the quality of the code"
+                echo "check the quality of the code and analysis using $ANALYSIS_TOOL"
             }
         }     
-        stage('Deploy'){
+        stage('Security Scan'){
             steps{
-                echo "deploy the application to $TESTING_ENVIRONMENT specified by the environment variable"
+                echo "check for security vulnerabilities using $SECURITY_TOOL"
+            }
+            success{
+                mail bcc: '', body: 'Security step was a success', cc: '', from: '', replyTo: '', subject: 'Jenkins Test Results', to: 'dlambrick@deakin.edu.au'
+            }
+            failure{
+                mail bcc: '', body: 'Security step was a failure', cc: '', from: '', replyTo: '', subject: 'Jenkins Test Results', to: 'dlambrick@deakin.edu.au'                
             }
         }
-        stage('Approval'){
+        stage('Deploy'){
             steps{
-                sleep 10
+                echo "deploy to staging $STAGING_SERVER"
+            }
+        }
+        stage('Integration tests'){
+            steps{
+                echo "running integration tests on the staging $STAGING_SERVER"
             }
         }
         stage('Deploy to Production'){
             steps{
-                echo "$PRODUCTION_ENVIRONMENT, deployment is done!"
+                echo "deploying to production $PRODUCTION_SERVER"
             }
         }
     }
