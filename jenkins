@@ -11,10 +11,6 @@ pipeline{
     stages{
         stage('Build'){
             steps{
-                emailext body: 'Test Messageeee',
-                subject: 'Test Subject',
-                to: 'darcylambrick@gmail.com'
-
                 echo "fetch the source code from $BUILD_TOOL and compile and package"
             }
         }
@@ -24,10 +20,14 @@ pipeline{
             }
             post{
                 success{
-                    mail bcc: '', body: 'Testing step was a success', cc: '', from: '', replyTo: '', subject: 'Jenkins Test Results', to: 'dlambrick@deakin.edu.au'                    
+                    emailext body: 'Testing step was a success',
+                    subject: 'Jenkins Testing Success',
+                    to: 'dlambrick@deakin.edu.au'
                 }
                 failure{
-                    mail bcc: '', body: 'Testing step was a failure. Build terminated', cc: '', from: '', replyTo: '', subject: 'Jenkins Test Results', to: 'dlambrick@deakin.edu.au'                
+                    emailext body: 'Testing step was a failure',
+                    subject: 'Jenkins Testing Failure',
+                    to: 'dlambrick@deakin.edu.au'
                 }
             }           
         }
@@ -42,10 +42,14 @@ pipeline{
             }
             post{
                 success{
-                    mail bcc: '', body: 'Security step was a success', cc: '', from: '', replyTo: '', subject: 'Jenkins Security Results', to: 'dlambrick@deakin.edu.au'
+                    emailext body: 'Security step was a success',
+                    subject: 'Jenkins Security Success',
+                    to: 'dlambrick@deakin.edu.au'
                 }
                 failure{
-                    mail bcc: '', body: 'Security step was a failure. Build terminated', cc: '', from: '', replyTo: '', subject: 'Jenkins Security Results', to: 'dlambrick@deakin.edu.au'                
+                    emailext body: 'Security step was a success',
+                    subject: 'Jenkins Security Failure',
+                    to: 'dlambrick@deakin.edu.au'
                 }
             }
 
