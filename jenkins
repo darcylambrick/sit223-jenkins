@@ -11,6 +11,10 @@ pipeline{
     stages{
         stage('Build'){
             steps{
+                emailext body: 'Test Message',
+                subject: 'Test Subject',
+                to: 'darcylambrick@gmail.com'
+                
                 echo "fetch the source code from $BUILD_TOOL and compile and package"
             }
         }
