@@ -18,12 +18,14 @@ pipeline{
             steps{
                 echo "unit tests and integration tests using $TESTING_TOOL"
             }
-            // success{
-            //     mail bcc: '', body: 'Testing step was a success', cc: '', from: '', replyTo: '', subject: 'Jenkins Test Results', to: 'dlambrick@deakin.edu.au'
-            // }
-            // failure{
-            //     mail bcc: '', body: 'Testing step was a failure', cc: '', from: '', replyTo: '', subject: 'Jenkins Test Results', to: 'dlambrick@deakin.edu.au'                
-            // }            
+            post{
+                success{
+                    mail bcc: '', body: 'Testing step was a success', cc: '', from: '', replyTo: '', subject: 'Jenkins Test Results', to: 'dlambrick@deakin.edu.au'                    
+                }
+                failure{
+                    mail bcc: '', body: 'Testing step was a failure. Build terminated', cc: '', from: '', replyTo: '', subject: 'Jenkins Test Results', to: 'dlambrick@deakin.edu.au'                
+                }
+            }           
         }
         stage('Code Analysis'){
             steps{
@@ -34,12 +36,15 @@ pipeline{
             steps{
                 echo "check for security vulnerabilities using $SECURITY_TOOL"
             }
-            // success{
-            //     mail bcc: '', body: 'Security step was a success', cc: '', from: '', replyTo: '', subject: 'Jenkins Test Results', to: 'dlambrick@deakin.edu.au'
-            // }
-            // failure{
-            //     mail bcc: '', body: 'Security step was a failure', cc: '', from: '', replyTo: '', subject: 'Jenkins Test Results', to: 'dlambrick@deakin.edu.au'                
-            // }
+            post{
+                success{
+                    mail bcc: '', body: 'Security step was a success', cc: '', from: '', replyTo: '', subject: 'Jenkins Security Results', to: 'dlambrick@deakin.edu.au'
+                }
+                failure{
+                    mail bcc: '', body: 'Security step was a failure. Build terminated', cc: '', from: '', replyTo: '', subject: 'Jenkins Security Results', to: 'dlambrick@deakin.edu.au'                
+                }
+            }
+
         }
         stage('Deploy'){
             steps{
