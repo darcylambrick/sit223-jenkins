@@ -1,0 +1,42 @@
+pipeline{
+    agent any
+    environment {
+        DIRECTORY_PATH="C:/Users/Darcy/Documents/Deakin/SIT223/Code/Jenkins"
+        TESTING_ENVIRONMENT="my_first_pipeline testing"
+        PRODUCTION_ENVIRONMENT="Darcy"
+    }
+    stages{
+        stage('Build'){
+            steps{
+                echo "fetch the source code from $DIRECTORY_PATH specified by the environment variable"
+                echo "compile the code and generate any necessary artifacts"
+            }
+        }
+        stage('Test'){
+            steps{
+                echo "unit tests"
+                echo "integration tests"
+            }
+        }
+        stage('Code Quality Test'){
+            steps{
+                echo "check the quality of the code"
+            }
+        }     
+        stage('Deploy'){
+            steps{
+                echo "deploy the application to $TESTING_ENVIRONMENT specified by the environment variable"
+            }
+        }
+        stage('Approval'){
+            steps{
+                sleep 10
+            }
+        }
+        stage('Deploy to Production'){
+            steps{
+                echo "$PRODUCTION_ENVIRONMENT, deployment is done!"
+            }
+        }
+    }
+}
