@@ -16,7 +16,7 @@ pipeline{
         }
         stage('Test'){
             steps{
-                echo "unit tests and integration tests using $TESTING_TOOL"
+                echo "unit tests using $TESTING_TOOL"
             }
             post{
                 success{
