@@ -42,7 +42,7 @@ pipeline{
             steps{
                 echo "check for security vulnerabilities using $SECURITY_TOOL"
                 echo "testing failure"
-                throw new Exception("Throw to stop pipeline")
+                currentBuild.result = "FAILURE"
             }
             post{
                 success{
