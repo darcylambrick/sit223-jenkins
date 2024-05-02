@@ -41,6 +41,7 @@ pipeline{
         stage('Security Scan'){
             steps{
                 echo "check for security vulnerabilities using $SECURITY_TOOL"
+                echo "testing success"
             }
             post{
                 success{
