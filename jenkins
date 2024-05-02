@@ -41,7 +41,8 @@ pipeline{
         stage('Security Scan'){
             steps{
                 echo "check for security vulnerabilities using $SECURITY_TOOL"
-                echo "testing success"
+                echo "testing failure"
+                throw new Exception("Throw to stop pipeline")
             }
             post{
                 success{
@@ -51,7 +52,7 @@ pipeline{
                     attachLog: true
                 }
                 failure{
-                    emailext body: 'Security step was a success',
+                    emailext body: 'Security step was a failure',
                     subject: 'Jenkins Security Failure',
                     to: 'dlambrick@deakin.edu.au',
                     attachLog: true
