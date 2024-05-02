@@ -42,7 +42,9 @@ pipeline{
             steps{
                 echo "check for security vulnerabilities using $SECURITY_TOOL"
                 echo "testing failure"
-                currentBuild.result = "FAILURE"
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    sh "exit 1"
+                }
             }
             post{
                 success{
